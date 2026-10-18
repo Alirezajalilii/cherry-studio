@@ -10,8 +10,6 @@ Cherry 需要以统一方式访问不同智能体 harness，同时保留各自�
 
 本文接替 Runtime 栈中的 harness 定义文档。三个包已有代码，但桌面接入、产品会话的存储关联和 Lane 投影仍待完成。本文保留 proposed，因为包实现并不等于这些接入及其验收已经完成。
 
-本文的实现事实以累计 Runtime 栈 `bd6509eb5f71a9c6bbb57453f0a7ced25e92c766` 的检查结果为依据。由上层提供的行为在本层仍属于目标，不表示这些功能已存在于本层。源码链接指向该固定快照，尚未引入的文档链接到其所属 PR。
-
 ## Proposal
 
 ### 按行为定义 harness
@@ -80,14 +78,14 @@ Native harness facts -> adapter normalization -> host Lane/history projection ->
 
 | 位置 | 当前职责 |
 | --- | --- |
-| [agent-runtime](https://github.com/CherryHQ/cherry-studio/blob/bd6509eb5f71a9c6bbb57453f0a7ced25e92c766/packages/agent-runtime/README.md) | 公共契约、不透明 ID 和 `ThreadFeed` 观察交付；不含执行循环、SDK、Electron、AI SDK 或产品实体。 |
-| [agent-runtime-pi](https://github.com/CherryHQ/cherry-studio/blob/bd6509eb5f71a9c6bbb57453f0a7ced25e92c766/packages/agent-runtime-pi/README.md) | Pi coding-agent 接入及自有的 Pi goal、工具和子智能体扩展，使用原生会话与存储。 |
-| [agent-runtime-pi-durable](https://github.com/CherryHQ/cherry-studio/blob/bd6509eb5f71a9c6bbb57453f0a7ced25e92c766/packages/agent-runtime-pi-durable/README.md) | 独立接入 Pi Durable 的 `Harness`、conversation/task API、调度器与存储。 |
-| [Cherry 模型桥](https://github.com/CherryHQ/cherry-studio/blob/bd6509eb5f71a9c6bbb57453f0a7ced25e92c766/src/main/ai/runtime/pi/README.md) | 宿主模型选择，以及通过原生 `ModelRuntime` 完成 AI SDK 请求/响应转换；模型与工具循环仍由 Pi 负责。 |
+| [agent-runtime](../../../../packages/agent-runtime/README.md) | 公共契约、不透明 ID 和 `ThreadFeed` 观察交付；不含执行循环、SDK、Electron、AI SDK 或产品实体。 |
+| [agent-runtime-pi](../../../../packages/agent-runtime-pi/README.md) | Pi coding-agent 接入及自有的 Pi goal、工具和子智能体扩展，使用原生会话与存储。 |
+| [agent-runtime-pi-durable](../../../../packages/agent-runtime-pi-durable/README.md) | 独立接入 Pi Durable 的 `Harness`、conversation/task API、调度器与存储。 |
+| [Cherry 模型桥](../../../../src/main/ai/runtime/pi/README.md) | 宿主模型选择，以及通过原生 `ModelRuntime` 完成 AI SDK 请求/响应转换；模型与工具循环仍由 Pi 负责。 |
 
 Pi Durable 是独立执行系统，不是 coding-agent 的持久化开关。两个适配器依赖公共包，互不依赖。Cherry 模型绑定负责请求重试，并在绑定的会话上关闭 Pi 重试；它没有再添加一套智能体循环。原生压缩、验证器上下文和 child 续接使用原生消息与 manager，不从公共展示 Item 重建。
 
-桌面服务仍使用既有 Runtime 路径。[Runtime 契约](2026-10-17-agent-runtime-contract.md) 记录已实现的访问协议及其限制；[Harness 证据文档](../testing/2026-10-17-agent-harness-evidence.md) 区分五类原生样本、历史探针、源码覆盖与剩余验收。[Goal 文档](../feature/2026-10-11-agent-runtime-goal.md) 和[后台子智能体文档](https://github.com/CherryHQ/cherry-studio/pull/21693) 分别维护 Pi 专用决策。
+桌面服务仍使用既有 Runtime 路径。[Runtime 契约](2026-10-17-agent-runtime-contract.md) 记录已实现的访问协议及其限制；[Harness 证据文档](../testing/2026-10-17-agent-harness-evidence.md) 区分五类原生样本、历史探针、源码覆盖与剩余验收。[Goal 文档](../feature/2026-10-11-agent-runtime-goal.md) 和[后台子智能体文档](../feature/2026-10-14-agent-runtime-background-subagent.md) 分别维护 Pi 专用决策。
 
 ## Alternatives considered
 
