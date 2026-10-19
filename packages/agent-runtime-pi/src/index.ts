@@ -61,4 +61,10 @@ export {
 } from './todoExtension'
 
 export type { AgentRuntimeEvent, CompactionReason } from './sessionEvents'
-export { createPiRuntime, type PiRuntime, type PiRuntimeOptions, type PiSessionOptions } from './runtime'
+export {
+  createPiRuntime,
+  type PiRuntime,
+  type PiRuntimeOptions,
+  type PiSessionOptions,
+  type PiThreadHandle
+} from './runtime'
